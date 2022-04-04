@@ -2,9 +2,12 @@ from pathlib import Path
 import random
 import yaml
 
+_ROOT = Path(__file__).resolve().parents[0]
+used_images_path = _ROOT / 'data/used_images.yaml'
+print(used_images_path)
 
 def get_filepaths(patterns):
-    path = Path('../images')
+    path = _ROOT.parents[0] / 'images'
     files = []
     for pattern in patterns:
         file = path.glob(pattern)
@@ -16,12 +19,12 @@ def save_used_paths(files):
     yaml_dict = {
         'used_images': [str(x) for x in files]
     }
-    with open('data/used_images.yaml', 'w') as yaml_file:
+    with open(used_images_path, 'w') as yaml_file:
         yaml.safe_dump(yaml_dict, yaml_file)
 
 
 def load_used_images():
-    with open('data/used_images.yaml') as file:
+    with open(used_images_path) as file:
         used_images = yaml.load(file, Loader=yaml.FullLoader)
     return used_images
 

@@ -1,10 +1,6 @@
 import tweepy
-import yaml
 
-
-def login(secret_path):
-    with open(secret_path) as file:
-        secrets = yaml.load(file, Loader=yaml.FullLoader)
+def login(secrets):
 
     client = tweepy.Client(
         consumer_key=secrets['API_KEY'],
